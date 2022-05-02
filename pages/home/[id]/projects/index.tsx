@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { ReactElement } from 'react'
 import useUrlQuery from '../../../../hooks/useUrlQuery'
+import { ProjectWrapper } from '../../../../src/components/ProjectsPage/ProjectWrapper'
 import { HomeLayout } from '../../../../src/layouts/HomeLayout/HomeLayout'
 import { useFetchUser } from '../../../../src/store/User/useFetchUser'
 
@@ -15,15 +16,14 @@ const ProjectPage = () => {
 
     const { data, error } = useFetchUser(url)
 
-    console.log(data)
-
     return (
         <div>
             <Head>
                 <title>Projects</title>
             </Head>
-            Projects
-            
+            <ProjectWrapper 
+                data={data!}
+            />
         </div>
     )
 }

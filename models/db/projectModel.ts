@@ -16,4 +16,4 @@ const schema: Schema = new Schema <IProject> ({
     completedTasks: { type: [], required: true  }
 })
 
-export const User: Model <IProject> = models.User || model('Project', schema)
+export const Project: Model <IProject> = models.Project || model('Project', schema)

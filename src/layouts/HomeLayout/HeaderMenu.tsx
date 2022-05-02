@@ -1,7 +1,6 @@
 import { Menu, MenuItem } from '@mui/material'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 type HeaderMenuProps = {
     openMenu: boolean

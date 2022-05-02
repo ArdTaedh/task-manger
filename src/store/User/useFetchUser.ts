@@ -9,7 +9,7 @@ const fetchUser = async (id: string) => {
 }
 
 export const useFetchUser = (id: string) => {
-    const { data, error } = useQuery(
+    const { data, error, isLoading } = useQuery(
         ['fetchUser', id],
         () => fetchUser(id!), 
         {
@@ -17,5 +17,5 @@ export const useFetchUser = (id: string) => {
         }
     )
 
-    return { data, error }
+    return { data, error, isLoading }
 }

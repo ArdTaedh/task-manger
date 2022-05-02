@@ -1,4 +1,5 @@
 import { Schema, model, models, Model } from 'mongoose';
+import { ProjectModel } from './projectModel';
 
 interface IUser {
     username: string,
@@ -15,7 +16,7 @@ const schema: Schema = new Schema <IUser> ({
     image: { type: String },
     email: {  type: String, required: true, unique: true  },
     password: { type: String, required: true },
-    projects: { type: [], required: true  },
+    projects: { type: [ProjectModel], required: true  },
     processingTasks: { type: [], required: true  },
     completedTasks: { type: [], required: true  }
 })
