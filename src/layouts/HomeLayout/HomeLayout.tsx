@@ -3,8 +3,8 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import { Box } from '@mui/system';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
-import { useFetchUser } from '../../store/User/useFetchUser';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 
 type HomeLayoutProps = {
@@ -21,16 +21,10 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export const HomeLayout = ({ children }: HomeLayoutProps) => {
-    const router = useRouter()
-    const {id} = router.query
-
     const [open, setOpen] = useState(false);
-    const [url, setUrl] = useState("")
 
-    useEffect(()=>{
-        router.isReady ? setUrl(id as string) : ''
-    
-    }, [router.isReady, id, setUrl]);
+    const router = useRouter()
+    const { status } = useSession()
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -41,7 +35,13 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
     };
 
     
-    const { data } = useFetchUser(String(url))
+    // const data  = fetch('adasd')
+
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/')
+        }
+    }, [status, router])
 
     return (
         <Box
@@ -53,12 +53,11 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
             <Header
                 open={open}
                 toggle={handleDrawerOpen} 
-                userData={data}
+                // userData={data}
             />
             <Sidebar
                 open={open}
                 close={handleDrawerClose}
-                url={String(url)}
             />
             <Box
                 component='main'

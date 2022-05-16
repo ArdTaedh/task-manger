@@ -15,7 +15,9 @@
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
-    "@mui/material": "latest",
+    "@mui/lab": "^5.0.0-alpha.81",
+    "@mui/material": "^5.7.0",
+    "@reduxjs/toolkit": "^1.8.1",
     "@tsndr/cloudflare-worker-jwt": "^1.1.7",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
@@ -23,10 +25,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.1",
     "next": "latest",
+    "next-auth": "^4.3.4",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-query": "^3.38.0"
+    "react-redux": "^8.0.1",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

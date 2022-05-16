@@ -3,17 +3,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar } from './headerMixins';
 import { useEffect, useState } from 'react';
 import { HeaderMenu } from '../HeaderMenu';
-import { useFetchUser } from '../../../store/User/useFetchUser';
 import { useRouter } from 'next/router';
 import { Box, width } from '@mui/system';
 
 type HeaderProps = {
     open: boolean,
     toggle: () => void
-    userData: {}
+    // userData: {}
 }
 
-export const Header = ({ open, toggle, userData }: HeaderProps) => {
+export const Header = ({ open, toggle }: HeaderProps) => {
     const [menu, setMenuOpen] = useState<null | HTMLElement>(null);
     const openMenu = Boolean(menu);
 
@@ -27,7 +26,7 @@ export const Header = ({ open, toggle, userData }: HeaderProps) => {
         setMenuOpen(null);
     };
 
-    const data = userData as any
+    // const data = userData as any
 
 
     return (
@@ -80,7 +79,7 @@ export const Header = ({ open, toggle, userData }: HeaderProps) => {
                             <Avatar />
                         </IconButton>
                         <HeaderMenu openMenu={openMenu} onClose={handleClose} menuItem={menu} />
-                        {userData ? data.username : ''}
+                        {/*{userData ? data.username : ''}*/}
                     </div>
                 </Box>
 

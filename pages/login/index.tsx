@@ -1,13 +1,20 @@
 import { Alert, Button, CircularProgress, CssBaseline, Grid, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import axios from 'axios'
+import { Error } from '../../src/store/slices/auth/loginSlice/loginSlice'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { useMutation } from 'react-query'
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
+import { useDispatch } from 'react-redux'
+import { loginAction } from '../../src/store/slices/auth/loginSlice/loginSlice'
+import {  AppDispatch, useAppSelector } from '../../src/store/store'
 import Link from '../../utils/mui/Link'
+import LoadingButton from '@mui/lab/LoadingButton';
+import {useSession} from "next-auth/react";
 
 const LoginPage = () => {
+    const dispatch : AppDispatch = useDispatch();
+    const { isError, error, loading, isSuccess } = useAppSelector(state => state.login)
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -20,37 +27,21 @@ const LoginPage = () => {
     }
 
     const router = useRouter()
+    const { status } = useSession()
 
-    const loginAction = async () => {
-        const data = {
-            email: email,
-            password: password
-        }
-
-        const response = await axios.post('/api/login', data)
-        const result = await response.data
-
-        return result
+    if (status === "authenticated") {
+        router.push("/home")
     }
 
-    const { mutate, isLoading, error } = useMutation(loginAction,  {
-
-        onSuccess: (result: any) => {
-            if (result.message === 'success') {
-                router.push(`/home/${result.id}`)
-            }
-        },
-        onError: (err: any) => {
-            const error = err.response.data.message
-            return error
-        },
-    })
-
-    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (e: FormEvent) => {
         e.preventDefault()
 
-        mutate()
-    } 
+        try {
+            dispatch(loginAction(email, password))
+        } catch (e: any) {
+            dispatch(Error(e))
+        }
+    }
 
     return (
         <>
@@ -70,7 +61,6 @@ const LoginPage = () => {
                 {/* <CssBaseline /> */}
                 <Box
                     component="form"
-                    /*onSubmit={handleSubmit}*/
                     noValidate 
                     sx={{ 
                         width: '350px'
@@ -86,15 +76,14 @@ const LoginPage = () => {
                     >
                         Login
                     </Typography>
-                    { isLoading && <CircularProgress  sx={{margin: '0.7rem 0'}} /> }
-                    { error && (
+                    { isError && (
                         <Alert 
                             severity="error" 
                             sx={{
                                 margin: '0.7rem 0'
                             }}
                         >
-                            {error.response.data.message}
+                            {error}
                         </Alert>) 
                     }
                     <TextField
@@ -121,14 +110,16 @@ const LoginPage = () => {
                         value={password}
                         onChange={setPasswordHandler}
                     />
-                    <Button
+                    <LoadingButton
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        loading={loading === 'loading'}
                     >
                         Login
-                    </Button>
+                    </LoadingButton>
+
                     <Grid container>
                         <Grid item xs>
                             <Link href="/signup" variant="body2">

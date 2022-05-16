@@ -14,16 +14,15 @@ import { useEffect, useState } from 'react';
 type SidebarProps = {
     open: boolean
     close: () => void
-    url: string
 }
 
 
-export const Sidebar = ({ open, close, url }: SidebarProps) => {
+export const Sidebar = ({ open, close, }: SidebarProps) => {
     
     const sidebarElements = [
-        { id: 1, label: 'Home', icon: <HomeIcon />, url: `/home/${url !== '' && url}` },
-        { id: 2, label: 'Projects', icon: <FolderIcon />, url: `/home/${url !== '' && url}/projects` },
-        { id: 3, label: 'Settings', icon: <SettingsIcon />, url: `/home/${url !== '' && url}/settings` }
+        { id: 1, label: 'Home',      icon: <HomeIcon />,      url: '/home' },
+        { id: 2, label: 'Projects',  icon: <FolderIcon />,    url: '/home/projects' },
+        { id: 3, label: 'Settings',  icon: <SettingsIcon />,  url: '/home/settings' }
     ]
 
     return (

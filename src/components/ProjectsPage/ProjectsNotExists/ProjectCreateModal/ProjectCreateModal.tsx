@@ -1,7 +1,6 @@
 import { Box, Button, Dialog, DialogTitle, FormControl, TextField } from '@mui/material'
 import { padding } from '@mui/system'
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react'
-import { useCreateProject } from '../../../../store/Projects/useCreateProject'
 
 type ProjectCreateModalTypes = {
     open: boolean,
@@ -11,23 +10,25 @@ type ProjectCreateModalTypes = {
 
 export const ProjectCreateModal: FC <ProjectCreateModalTypes> = ({ open, onClose, userId }) => {
 
-    const { error, isLoading, mutate } = useCreateProject()
-    
     const [projectName, setProjectName] = useState('')
+    console.log(userId)
 
-    const setProjectNameHandler = (e: FormEvent<HTMLInputElement>) => {
-        e.preventDefault()
-
-        setProjectName(e.currentTarget.value)
+    const data = {
+        userId: userId,
+        projectName: projectName
     }
 
-    const submitHandler = () => {
-        const data = {
-            userId: userId,
-            projectName: projectName
-        }
+    // const { error, isLoading, mutate } = useCreateProject(userId, projectName)
+    
+    
 
-        mutate(data)
+    const setProjectNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setProjectName(e.target.value)
+    }
+
+    const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
     }
 
     return (
@@ -46,13 +47,14 @@ export const ProjectCreateModal: FC <ProjectCreateModalTypes> = ({ open, onClose
                     padding: '1rem',
                     gap: '1rem'
                 }}
+                onSubmit={submitHandler}
             >
                 <FormControl>
                     <TextField
                         required
                         id="outlined-required"
                         label="Project Name"
-                        onChange={(e) => setProjectNameHandler(e)}
+                        onChange={setProjectNameHandler}
                         value={projectName}
                     />
                 </FormControl>

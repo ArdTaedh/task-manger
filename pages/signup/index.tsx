@@ -2,46 +2,35 @@ import { Alert, Box, Button, CircularProgress, Grid, TextField, Typography } fro
 import Link from '../../utils/mui/Link'
 import Head from 'next/head'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useMutation, useQuery } from 'react-query'
+import { useAppDispatch, useAppSelector } from '../../src/store/store'
+import { Reset, signupAction } from '../../src/store/slices/auth/signupSlice/SignupSlice'
 
 const SignupPage = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const dispatch = useAppDispatch()
+    const { error, isError, loading, message } = useAppSelector(state => state.signup)
+    console.log(message)
+
     const router = useRouter()
 
-    const signupAction = async () => {
-        const data = {
-            username: username,
-            email: email,
-            password: password
-        }
+    // const { mutate, isLoading, error } = useMutation(signupAction,  {
 
-        const response = await axios.post('/api/signup', data)
-
-        const result = await response.data
-        // console.log(result)
-        return result
-    }
-
-
-    const { mutate, isLoading, error } = useMutation(signupAction,  {
-
-        onSuccess: (result: any) => {
-            console.log(result)
-            if (result.message === 'Created User!') {
-                // window.location.href = `${window.location.origin}/home`;
-                router.push('/login')
-            }
-        },
-        onError: (err: any) => {
-            const error = err.response.data.message
-            return error
-        },
-    })
+    //     onSuccess: (result: any) => {
+    //         console.log(result)
+    //         if (result.message === 'Created User!') {
+    //             // window.location.href = `${window.location.origin}/home`;
+    //             router.push('/login')
+    //         }
+    //     },
+    //     onError: (err: any) => {
+    //         const error = err.response.data.message
+    //         return error
+    //     },
+    // })
   
     const setUsernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
@@ -60,8 +49,12 @@ const SignupPage = () => {
     const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        mutate()
+        dispatch(signupAction(username, email, password))
     } 
+
+    if (message === 'Created User!') {
+        router.push('/login')
+    }
 
     return (
         <>
@@ -97,15 +90,15 @@ const SignupPage = () => {
                     >
                         Sign up
                     </Typography>
-                    { isLoading && <CircularProgress  sx={{margin: '0.7rem 0'}} /> }
-                    { error && (
+                    { loading === 'loading' && <CircularProgress  sx={{margin: '0.7rem 0'}} /> }
+                    { isError && (
                         <Alert 
                             severity="error" 
                             sx={{
                                 margin: '0.7rem 0'
                             }}
                         >
-                            {error.response.data.message}
+                            {error}
                         </Alert>) 
                     }
                     <TextField

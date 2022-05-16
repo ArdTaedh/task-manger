@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React, { ReactElement } from 'react'
-import { HomeLayout } from '../../../../src/layouts/HomeLayout/HomeLayout'
+import { HomeLayout } from '../../../src/layouts/HomeLayout/HomeLayout'
 
 const SettingsPage = () => {
     return (
