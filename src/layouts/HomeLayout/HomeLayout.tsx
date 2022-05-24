@@ -5,6 +5,8 @@ import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {fetchUserAction} from "../../store/slices/user/userFetchSlice/userFetchSilce";
 
 
 type HomeLayoutProps = {
@@ -23,6 +25,9 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 export const HomeLayout = ({ children }: HomeLayoutProps) => {
     const [open, setOpen] = useState(false);
 
+    const { userInfo } = useAppSelector(state => state.userFetch)
+    const { isSuccess } = useAppSelector(state => state.projectCreate)
+
     const router = useRouter()
     const { status } = useSession()
 
@@ -35,13 +40,17 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
     };
 
     
-    // const data  = fetch('adasd')
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (status === 'unauthenticated') {
             router.push('/')
+        } else {
+            if (!userInfo) {
+                dispatch(fetchUserAction())
+            }
         }
-    }, [status, router])
+    }, [status, router, userInfo])
 
     return (
         <Box
@@ -53,7 +62,7 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
             <Header
                 open={open}
                 toggle={handleDrawerOpen} 
-                // userData={data}
+                userData={userInfo!}
             />
             <Sidebar
                 open={open}

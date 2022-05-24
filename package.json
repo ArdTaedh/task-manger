@@ -30,7 +30,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-redux": "^8.0.1",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

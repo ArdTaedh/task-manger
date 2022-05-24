@@ -25,7 +25,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/home/[id]", "pages/home/projects"  ],
+,
+    "src/pages/home/[id]",
+    "src/pages/home/projects"
+  ],
   "exclude": [
     "node_modules"
   ]

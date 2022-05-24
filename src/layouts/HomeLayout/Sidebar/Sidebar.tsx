@@ -1,27 +1,36 @@
-import { CSSObject, Divider, IconButton, List, styled, Theme, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import {
+    Divider,
+    IconButton,
+    List,
+    Typography
+} from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
-import Link from '../../../../utils/mui/Link';
 import FolderIcon from '@mui/icons-material/Folder';
 import { DrawerHeader } from '../HomeLayout';
 import { Drawer } from './sidebarMixins';
 import { SidebarLink } from './SidebarLink';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import {useAppSelector} from "../../../store/store";
 
 type SidebarProps = {
     open: boolean
     close: () => void
 }
 
-
 export const Sidebar = ({ open, close, }: SidebarProps) => {
-    
+    const { query, pathname } = useRouter()
+
+    const { userInfo } = useAppSelector(state => state.userFetch)
+    const userData = userInfo as any
+
     const sidebarElements = [
         { id: 1, label: 'Home',      icon: <HomeIcon />,      url: '/home' },
-        { id: 2, label: 'Projects',  icon: <FolderIcon />,    url: '/home/projects' },
+        { id: 2, label: 'Projects',  icon: <FolderIcon />,    url:  !pathname.includes('[...id]')
+                                                                        ? '/home/projects'
+                                                                        : `/home/projects/${query.id}` },
         { id: 3, label: 'Settings',  icon: <SettingsIcon />,  url: '/home/settings' }
     ]
 
@@ -31,7 +40,21 @@ export const Sidebar = ({ open, close, }: SidebarProps) => {
             open={open}
             color='default'
         >
-            <DrawerHeader>
+            <DrawerHeader
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <Typography
+                    display="flex"
+                    alignItems="center"
+                    pl='20px'
+                    fontWeight={500}
+                >
+                    Task Manager
+                </Typography>
+
                 <IconButton
                     sx={{
                         display: 'flex',

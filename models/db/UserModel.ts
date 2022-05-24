@@ -17,8 +17,6 @@ const schema: Schema = new Schema <IUser> ({
     email: {  type: String, required: true, unique: true  },
     password: { type: String, required: true },
     projects: { type: [ProjectModel], required: true  },
-    processingTasks: { type: [], required: true  },
-    completedTasks: { type: [], required: true  }
 })
 
 export const User: Model <IUser> = models.User || model('User', schema)

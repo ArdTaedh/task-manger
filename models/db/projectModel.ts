@@ -1,6 +1,7 @@
 import { Schema, model, models, Model } from 'mongoose';
 
 interface IProject {
+    id: string,
     name: string,
     description: string,
     toDo: any []
@@ -9,6 +10,7 @@ interface IProject {
 }
 
 const schema: Schema = new Schema <IProject> ({
+    id: { type: String, required: true },
     name: { type: String, required: true },
     description: { type: String },
     toDo: {  type: [], required: true, unique: true  },

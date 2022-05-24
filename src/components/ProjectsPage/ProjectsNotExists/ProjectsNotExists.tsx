@@ -1,20 +1,23 @@
 import { Button, Typography } from '@mui/material'
 import React, { FC, useRef } from 'react'
 import { ProjectCreateModal } from './ProjectCreateModal/ProjectCreateModal'
+import {useAppSelector} from "../../../store/store";
 
 type ProjectNotExistsTypes = {
-    userId: string
 }
 
-export const ProjectsNotExists: FC <ProjectNotExistsTypes> = ({ userId }) => {
+export const ProjectsNotExists: FC <ProjectNotExistsTypes> = () => {
     const [open, setOpen] = React.useState(false);
-    
+
+    const { isSuccess } = useAppSelector(state => state.projectCreate)
 
     const toggleModalHandler = () => {
         setOpen(!open);
       };
 
-  
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <div>
@@ -32,7 +35,7 @@ export const ProjectsNotExists: FC <ProjectNotExistsTypes> = ({ userId }) => {
             <ProjectCreateModal 
                 open={open}
                 onClose={toggleModalHandler}
-                userId={userId}
+                handleClose={handleClose}
             />
         </div>
     )

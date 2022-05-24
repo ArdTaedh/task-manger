@@ -22,7 +22,7 @@ export const SidebarLink = ({ buttonLabel, url, icon, open }: SidebarLinkProps) 
             href={url}
             sx={{
                 textDecoration: 'none',
-                color: isActiveLink(url!) ? 'rgb(0, 114, 229)' : '#000'
+                color: isActiveLink(url)  ? 'rgb(0, 114, 229)' : '#000'
             }}
         >
             <ListItemButton
@@ -31,7 +31,7 @@ export const SidebarLink = ({ buttonLabel, url, icon, open }: SidebarLinkProps) 
                     justifyContent: open ? 'initial' : 'center',
                     px: 2.5,
                 }}
-                selected={isActiveLink(url) ? true : false}
+                selected={isActiveLink(url!)}
             >
                 <ListItemIcon
                     sx={{

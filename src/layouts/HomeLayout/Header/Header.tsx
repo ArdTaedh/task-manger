@@ -1,24 +1,23 @@
-import { Avatar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import {Avatar, Button, IconButton, Skeleton, styled, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar } from './headerMixins';
-import { useEffect, useState } from 'react';
-import { HeaderMenu } from '../HeaderMenu';
-import { useRouter } from 'next/router';
-import { Box, width } from '@mui/system';
+import {AppBar} from './headerMixins';
+import { useState, MouseEvent } from 'react';
+import {HeaderMenu} from '../HeaderMenu';
+import {useRouter} from 'next/router';
+import {Box, width} from '@mui/system';
+import {useAppSelector} from "../../../store/store";
 
 type HeaderProps = {
     open: boolean,
     toggle: () => void
-    // userData: {}
+    userData: {}
 }
 
-export const Header = ({ open, toggle }: HeaderProps) => {
+export const Header = ({open, toggle, userData}: HeaderProps) => {
     const [menu, setMenuOpen] = useState<null | HTMLElement>(null);
     const openMenu = Boolean(menu);
 
-
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setMenuOpen(event.currentTarget);
     };
 
@@ -26,8 +25,17 @@ export const Header = ({ open, toggle }: HeaderProps) => {
         setMenuOpen(null);
     };
 
-    // const data = userData as any
+    const { pathname, query } = useRouter()
 
+    const { loading, userInfo } = useAppSelector(state => state.userFetch)
+
+    const data = userInfo as any
+
+    const findProject = data?.projects?.find((el) => String(query.id) === el.id)
+
+    const activeProjectName = pathname.includes('[...id]')
+        ? <Typography>{findProject?.name}</Typography>
+        : null
 
     return (
         <AppBar
@@ -47,40 +55,56 @@ export const Header = ({ open, toggle }: HeaderProps) => {
                     edge="start"
                     sx={{
                         marginRight: 5,
-                        ...(open && { display: 'none' }),
+                        ...(open && {display: 'none'}),
                     }}
                 >
-                    <MenuIcon />
+                    <MenuIcon/>
                 </IconButton>
                 <Box
-                    component="div" 
+                    component="div"
                     className="header-section"
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        alignContent: 'center',
-                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        justifyContent: activeProjectName ? 'space-between' : 'flex-end',
                         width: '100%'
                     }}
                 >
-                    <Typography
-                        display="flex"
-                        alignItems="center"
+                    {activeProjectName}
+                    <Box
+                        className="user-info-section"
+                        component='div'
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}
                     >
-                        Task Manager
-                    </Typography>
-                   
-                    <div className="user-info-section">
                         <IconButton
                             onClick={handleClick}
-                            sx={{
-                            }}
+                            sx={{}}
                         >
-                            <Avatar />
+                            <Avatar/>
                         </IconButton>
-                        <HeaderMenu openMenu={openMenu} onClose={handleClose} menuItem={menu} />
-                        {/*{userData ? data.username : ''}*/}
-                    </div>
+                        <HeaderMenu openMenu={openMenu} onClose={handleClose} menuItem={menu}/>
+                        {
+                            userData
+                                ? (
+                                    <Typography
+                                        variant='body2'
+                                    >
+                                        {data.username}
+                                    </Typography>
+                                )
+                                : (
+                                    <Skeleton
+                                        variant='text'
+                                        width='28px'
+                                    />
+                                )
+                        }
+                    </Box>
                 </Box>
 
 
