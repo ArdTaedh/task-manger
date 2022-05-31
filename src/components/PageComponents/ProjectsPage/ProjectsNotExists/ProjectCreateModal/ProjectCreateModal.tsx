@@ -1,8 +1,8 @@
 import { Box, Button, Dialog, DialogTitle, FormControl, TextField } from '@mui/material'
 import { padding } from '@mui/system'
 import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react'
-import {useAppDispatch, useAppSelector} from "../../../../store/store";
-import {createProjectAction, Reset} from "../../../../store/slices/projects/createProjectSlice/createProjectSlice";
+import {useAppDispatch, useAppSelector} from "../../../../../store/store";
+import {createProjectAction, Reset} from "../../../../../store/slices/projects/createProjectSlice/createProjectSlice";
 
 
 type ProjectCreateModalTypes = {

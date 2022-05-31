@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import {useAppSelector} from "../../../store/store";
+import {useAppSelector} from "../../../../store/store";
 import {Card, CardContent, Typography} from "@mui/material";
-import Link from "../../../../utils/mui/Link";
+import Link from "../../../../../utils/mui/Link";
 
 type UserData = {
     id: string,
@@ -18,8 +18,6 @@ interface projectData {
 export const ProjectsExists: FC = () => {
     const { userInfo } = useAppSelector(state => state.userFetch)
     const data = userInfo as any
-
-
 
     const mappedData = data?.projects!.map((project: projectData) => (
         <Link
@@ -40,7 +38,6 @@ export const ProjectsExists: FC = () => {
 
     return (
         <>
-
             {mappedData}
         </>
     )

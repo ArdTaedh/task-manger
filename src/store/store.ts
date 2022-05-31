@@ -5,6 +5,9 @@ import { signupSlice } from "./slices/auth/signupSlice/SignupSlice";
 import {userFetchSlice} from "./slices/user/userFetchSlice/userFetchSilce";
 import {createProjectSlice} from "./slices/projects/createProjectSlice/createProjectSlice";
 import {detailProjectSlice} from "./slices/projects/detailProjectSLice/detailProjectSLice";
+import {loadState, saveState} from "../../utils/browseLocalStorage";
+import {setTasksViewTypeSlice} from "./slices/UI/setTasksViewTypeSlice/setTasksViewTypeSlice";
+import {debounce} from "debounce";
 
 
 export const store = configureStore({
@@ -13,9 +16,21 @@ export const store = configureStore({
         signup: signupSlice.reducer,
         userFetch: userFetchSlice.reducer,
         projectCreate: createProjectSlice.reducer,
-        projectDetail: detailProjectSlice.reducer
+        projectDetail: detailProjectSlice.reducer,
+        tasksViewType: setTasksViewTypeSlice.reducer
     },
 })
+
+// store.subscribe(
+//     // we use debounce to save the state once each 800ms
+//     // for better performances in case multiple changes occur in a short time
+//     debounce(() => {
+//         saveState({
+//             // tasksViewType: store.getState().tasksViewType.viewType
+//             tasksViewType: store.getState().tasksViewType.viewType
+//         });
+//     }, 800)
+// );
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

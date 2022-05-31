@@ -23,7 +23,7 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export const HomeLayout = ({ children }: HomeLayoutProps) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const { userInfo } = useAppSelector(state => state.userFetch)
     const { isSuccess } = useAppSelector(state => state.projectCreate)

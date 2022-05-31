@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import React, { FC, useRef } from 'react'
 import { ProjectCreateModal } from './ProjectCreateModal/ProjectCreateModal'
-import {useAppSelector} from "../../../store/store";
+import {useAppSelector} from "../../../../store/store";
 
 type ProjectNotExistsTypes = {
 }

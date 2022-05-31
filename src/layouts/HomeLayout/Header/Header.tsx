@@ -1,4 +1,4 @@
-import {Avatar, Button, IconButton, Skeleton, styled, Toolbar, Typography} from '@mui/material';
+import {Avatar, Button, Container, IconButton, Skeleton, styled, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {AppBar} from './headerMixins';
 import { useState, MouseEvent } from 'react';
@@ -48,6 +48,7 @@ export const Header = ({open, toggle, userData}: HeaderProps) => {
             enableColorOnDark={true}
         >
             <Toolbar>
+
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -60,6 +61,9 @@ export const Header = ({open, toggle, userData}: HeaderProps) => {
                 >
                     <MenuIcon/>
                 </IconButton>
+                <Container
+                    maxWidth={open ? 'xl' : 'xl'}
+                >
                 <Box
                     component="div"
                     className="header-section"
@@ -106,6 +110,7 @@ export const Header = ({open, toggle, userData}: HeaderProps) => {
                         }
                     </Box>
                 </Box>
+                </Container>
 
 
             </Toolbar>

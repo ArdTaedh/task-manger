@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React, { ReactElement } from 'react'
-import { ProjectWrapper } from '../../../components/ProjectsPage/ProjectWrapper'
+import { ProjectWrapper } from '../../../components/PageComponents/ProjectsPage/ProjectWrapper'
 import { HomeLayout } from '../../../layouts/HomeLayout/HomeLayout'
 
 const ProjectPage = () => {

@@ -1,8 +1,8 @@
 import React, {FC, useEffect} from 'react'
 import {ProjectsExists} from './ProjectsExists/ProjectsExists'
 import {ProjectsNotExists} from './ProjectsNotExists/ProjectsNotExists'
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {fetchUserAction} from "../../store/slices/user/userFetchSlice/userFetchSilce";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
+import {fetchUserAction} from "../../../store/slices/user/userFetchSlice/userFetchSilce";
 
 type ProjectWrapperTypes = {}
 
