@@ -1,5 +1,4 @@
-import { Schema, model, models, Model } from 'mongoose';
-import { ProjectModel } from './projectModel';
+import mongoose, { Schema, model, models, Model } from 'mongoose';
 
 interface IUser {
     username: string,
@@ -7,8 +6,7 @@ interface IUser {
     email: string,
     password: string,
     projects: any []
-    processingTasks: any [],
-    completedTasks: any []
+
 }
 
 const schema: Schema = new Schema <IUser> ({
@@ -16,7 +14,12 @@ const schema: Schema = new Schema <IUser> ({
     image: { type: String },
     email: {  type: String, required: true, unique: true  },
     password: { type: String, required: true },
-    projects: { type: [ProjectModel], required: true  },
+    projects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Project'
+        }
+    ]
 })
 
 export const User: Model <IUser> = models.User || model('User', schema)

@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         return res.send(userDto)
         }
-    } else {
-        return null
-    }
+    } 
+
+    return res.status(403)
 }

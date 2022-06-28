@@ -2,28 +2,31 @@ import React, {FC, useEffect} from 'react'
 import {ProjectsExists} from './ProjectsExists/ProjectsExists'
 import {ProjectsNotExists} from './ProjectsNotExists/ProjectsNotExists'
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {fetchUserAction} from "../../../store/slices/user/userFetchSlice/userFetchSilce";
+// import {fetchUserAction} from "../../../store/slices/user/userFetchSlice/userFetchSilce";
+// import {fetchProjectAction} from "../../../store/slices/projects/fetchProjectSlice/fetchProjectSlice";
 
 type ProjectWrapperTypes = {}
 
 export const ProjectWrapper: FC<ProjectWrapperTypes> = ({}) => {
-    const {userInfo} = useAppSelector(state => state.userFetch)
-    const data = userInfo as any
+    const {projects, error} = useAppSelector(state => state.projectsFetch)
+    
+    console.log(error)
 
     const dispatch = useAppDispatch()
 
     const {isSuccess} = useAppSelector(state => state.projectCreate)
 
-    useEffect(() => {
-        if (isSuccess) {
-            dispatch(fetchUserAction())
-        }
-    })
+    // useEffect(() => {
+    //     if (isSuccess || !projects) {
+    //         dispatch((fetchProjectAction()))
+    //     }
+
+    // }, [isSuccess, isError, dispatch])
 
     return (
         <>
             {
-                data?.projects.length === 0
+                projects?.length === 0
                     ? <ProjectsNotExists />
                     : <ProjectsExists />
             }

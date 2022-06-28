@@ -25,9 +25,6 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 export const HomeLayout = ({ children }: HomeLayoutProps) => {
     const [open, setOpen] = useState(true);
 
-    const { userInfo } = useAppSelector(state => state.userFetch)
-    const { isSuccess } = useAppSelector(state => state.projectCreate)
-
     const router = useRouter()
     const { status } = useSession()
 
@@ -40,17 +37,17 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
     };
 
     
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        if (status === 'unauthenticated') {
-            router.push('/')
-        } else {
-            if (!userInfo) {
-                dispatch(fetchUserAction())
-            }
-        }
-    }, [status, router, userInfo])
+    // useEffect(() => {
+    //     if (status === 'unauthenticated') {
+    //         router.push('/')
+    //     } else {
+    //         if (!userInfo) {
+    //             dispatch(fetchUserAction())
+    //         }
+    //     }
+    // }, [status, router, userInfo])
 
     return (
         <Box
@@ -62,7 +59,6 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
             <Header
                 open={open}
                 toggle={handleDrawerOpen} 
-                userData={userInfo!}
             />
             <Sidebar
                 open={open}

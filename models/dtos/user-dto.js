@@ -1,5 +1,5 @@
 module.exports = class UserDto {
-    _id;
+    id;
     username;
     email;
     image;

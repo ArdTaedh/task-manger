@@ -9,7 +9,7 @@ const initialState: LoginTypes = {
     error: null
 }
 
-export const loginSlice = createSlice({
+const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
@@ -45,6 +45,8 @@ export const loginSlice = createSlice({
 })
 
 export const {Request, Success, Error, Reset, Logout} = loginSlice.actions
+
+export default loginSlice.reducer
 
 export const loginAction = (email: string, password: string) => {
     return async (dispatch: Dispatch) => {

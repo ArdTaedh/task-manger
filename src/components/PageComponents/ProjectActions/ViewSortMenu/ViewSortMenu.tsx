@@ -20,12 +20,15 @@ const ViewSortMenu = ({menuElement, open, close}: ViewSortMenuProps) => {
             }}
         >
             <Box
+                component="div"
                 sx={{
                     width: '300px',
                     // padding: '0 1rem'
                 }}
             >
-                <Box>
+                <Box
+                    component="div"
+                >
                     <Typography
                         pl="1rem"
                         fontWeight='bold'
@@ -37,6 +40,7 @@ const ViewSortMenu = ({menuElement, open, close}: ViewSortMenuProps) => {
             </Box>
             <Divider />
             <Box
+                component="div"
                 sx={{
                     padding: '1rem 1rem 0',
                     display: 'flex',

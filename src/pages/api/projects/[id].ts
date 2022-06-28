@@ -2,6 +2,7 @@ import {getToken} from "next-auth/jwt";
 import dbConnect from "../../../../utils/db";
 import {User} from "../../../../models/db/UserModel";
 import {NextApiRequest, NextApiResponse} from "next";
+import {Project} from "../../../../models/db/projectModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const secret = process.env.SECRET
@@ -16,18 +17,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 const { id } = req.query
 
-                const user = await User.findById(token.uid)
+                const project = await Project.findById(id)
 
-                if (!user) {
-                    res.status(404).send('User not found')
+                if (!project) {
+                    res.status(404).send('Project not found')
                 }
 
-                //@ts-ignore
-                return user.projects.find(project =>
-                    project.id === id
-                        ? res.send(project)
-                        : res.status(404).send({ message: 'Project not Found' })
-                )
+                return res.send(project)
 
             } catch (e) {
                 res.send(e)

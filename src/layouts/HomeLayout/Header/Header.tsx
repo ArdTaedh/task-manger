@@ -9,11 +9,10 @@ import {useAppSelector} from "../../../store/store";
 
 type HeaderProps = {
     open: boolean,
-    toggle: () => void
-    userData: {}
+    toggle: () => void,
 }
 
-export const Header = ({open, toggle, userData}: HeaderProps) => {
+export const Header = ({open, toggle }: HeaderProps) => {
     const [menu, setMenuOpen] = useState<null | HTMLElement>(null);
     const openMenu = Boolean(menu);
 
@@ -28,13 +27,12 @@ export const Header = ({open, toggle, userData}: HeaderProps) => {
     const { pathname, query } = useRouter()
 
     const { loading, userInfo } = useAppSelector(state => state.userFetch)
+    const { project } = useAppSelector(state => state.projectDetail)
 
-    const data = userInfo as any
-
-    const findProject = data?.projects?.find((el) => String(query.id) === el.id)
+    const data = JSON.parse(userInfo)
 
     const activeProjectName = pathname.includes('[...id]')
-        ? <Typography>{findProject?.name}</Typography>
+        ? <Typography>{project?.name}</Typography>
         : null
 
     return (
@@ -93,7 +91,7 @@ export const Header = ({open, toggle, userData}: HeaderProps) => {
                         </IconButton>
                         <HeaderMenu openMenu={openMenu} onClose={handleClose} menuItem={menu}/>
                         {
-                            userData
+                            data !== null
                                 ? (
                                     <Typography
                                         variant='body2'

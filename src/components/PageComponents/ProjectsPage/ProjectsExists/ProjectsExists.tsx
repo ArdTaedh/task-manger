@@ -3,26 +3,20 @@ import {useAppSelector} from "../../../../store/store";
 import {Card, CardContent, Typography} from "@mui/material";
 import Link from "../../../../../utils/mui/Link";
 
-type UserData = {
-    id: string,
-    username: string,
-    email: string,
-    projects: [projectData]
-}
 
 interface projectData {
-    id: string,
+    _id: string,
     name: string
 }
 
 export const ProjectsExists: FC = () => {
-    const { userInfo } = useAppSelector(state => state.userFetch)
-    const data = userInfo as any
+    const { projects } = useAppSelector(state => state.projectsFetch)
+    const data = projects as any
 
     const mappedData = data?.projects!.map((project: projectData) => (
         <Link
-            key={project.id}
-            href={`projects/${project.id}`}
+            key={project._id}
+            href={`projects/${project._id}`}
         >
             <Card>
                 <CardContent>

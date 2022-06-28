@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from '@mui/material'
 import axios from 'axios'
+import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { logoutAction } from '../../store/slices/auth/loginSlice/loginSlice'
 import { useAppDispatch } from '../../store/store'
@@ -11,7 +12,7 @@ type HeaderMenuProps = {
 }
 
 export const HeaderMenu = ({ openMenu, onClose, menuItem }: HeaderMenuProps) => {
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
 
     return (
         <Menu
@@ -23,7 +24,7 @@ export const HeaderMenu = ({ openMenu, onClose, menuItem }: HeaderMenuProps) => 
                 'aria-labelledby': 'basic-button',
             }}
         >
-            <MenuItem onClick={() => dispatch(logoutAction())}>Logout</MenuItem>
+            <MenuItem onClick={() =>  signOut({redirect: true, callbackUrl: "/"})}>Logout</MenuItem>
         </Menu>
     )
 }

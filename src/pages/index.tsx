@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Header } from '../components/Header/Index/IndexHeader';
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
+import { wrapper } from '../store/store';
 
 const Home: NextPage = () => {
     const router = useRouter()

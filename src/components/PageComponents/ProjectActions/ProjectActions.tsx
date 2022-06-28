@@ -5,11 +5,14 @@ import ProjectSettingsAction from "./ProjectSettingsMenu/ProjectSettingsAction";
 
 const ProjectActions = () => {
     return (
-        <Box sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end'
-        }}
+        <Box
+            component="div"
+            sx={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: "1.5rem"
+            }}
         >
             <ViewSortAction />
             <ProjectSettingsAction />

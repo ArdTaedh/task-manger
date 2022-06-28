@@ -20,7 +20,7 @@ export const ProjectsNotExists: FC <ProjectNotExistsTypes> = () => {
     };
 
     return (
-        <div>
+        <>
             <Typography
                 variant='h6'
             >
@@ -37,6 +37,6 @@ export const ProjectsNotExists: FC <ProjectNotExistsTypes> = () => {
                 onClose={toggleModalHandler}
                 handleClose={handleClose}
             />
-        </div>
+        </>
     )
 }

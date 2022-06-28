@@ -21,10 +21,10 @@ type SidebarProps = {
 }
 
 export const Sidebar = ({ open, close, }: SidebarProps) => {
-    const { query, pathname } = useRouter()
+    const { query, pathname, isReady } = useRouter()
 
-    const { userInfo } = useAppSelector(state => state.userFetch)
-    const userData = userInfo as any
+    // const { userInfo } = useAppSelector(state => state.userFetch)
+    // const userData = userInfo as any
 
     const sidebarElements = [
         { id: 1, label: 'Home',      icon: <HomeIcon />,      url: '/home' },
