@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const token = await getToken({ req, secret })
 
+    //@ts-ignore
     const { uid } = token
 
     await dbConnect()
@@ -23,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(404).send({ message: 'User Not Found' })
             }
 
-            const projectsIds = user.projects
+            const projectsIds = user!.projects
 
             const projects = await Project.find({ _id: { $in: projectsIds } })
 

@@ -1,11 +1,11 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Box, Button, Card, CardContent, IconButton, TextField} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import {useAppDispatch, useAppSelector} from "../../../../../../store/store";
-import {createListAction} from "../../../../../../store/slices/list/createListSlice/createListSlice";
+import {useAppDispatch, useAppSelector} from "../../../../../../../store/store";
+import {createListAction} from "../../../../../../../store/slices/list/createListSlice/createListSlice";
 
 type creteListTypes = {
-    setList: () => void
+    setList: () => void,
 }
 
 const CreateListCard = ({ setList }: creteListTypes) => {
@@ -34,8 +34,11 @@ const CreateListCard = ({ setList }: creteListTypes) => {
     return (
             <Card
                 sx={{
+                    marginTop: "1px",
                     width: '15rem',
-                    height: "fit-content"
+                    // height: "fit-content",
+                    height: "140px",
+                    // overflowX: "auto",
                 }}
             >
                 <Box

@@ -26,11 +26,17 @@ export const createListSlice = createSlice({
             state.isSuccess = false
             state.isError = true
             state.error = action.payload
+        },
+        Reset: (state) => {
+            state.isLoading = 'idle'
+            state.isSuccess = false
+            state.isError = false
+            state.error = null
         }
     }
 })
 
-export const {Request, Success, Error} = createListSlice.actions
+export const {Request, Success, Error, Reset} = createListSlice.actions
 
 export const createListAction = (
     title: string | undefined,

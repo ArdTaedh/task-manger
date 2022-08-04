@@ -28,6 +28,8 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
     const router = useRouter()
     const { status } = useSession()
 
+    const { userInfo } = useAppSelector(state => state.userFetch)
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -37,17 +39,17 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
     };
 
     
-    // const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
-    // useEffect(() => {
-    //     if (status === 'unauthenticated') {
-    //         router.push('/')
-    //     } else {
-    //         if (!userInfo) {
-    //             dispatch(fetchUserAction())
-    //         }
-    //     }
-    // }, [status, router, userInfo])
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/')
+        } else {
+            if (!userInfo) {
+                dispatch(fetchUserAction())
+            }
+        }
+    }, [status, router, userInfo])
 
     return (
         <Box

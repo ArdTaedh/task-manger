@@ -1,54 +1,54 @@
 import {createSlice, Dispatch} from "@reduxjs/toolkit";
 import axios from "axios";
 import { HYDRATE } from "next-redux-wrapper";
-import { fetchProjectTypes } from "./fetchProjectTypes";
+import { removeListTypes } from "./removeListTypes";
 
-const initialState : fetchProjectTypes = {
+const initialState : removeListTypes = {
     loading: 'idle',
-    projects: null,
+    isSucess: false,
     isError: false,
     error: null
 }
 
-export const fetchProjectSlice = createSlice({
-    name: 'fetchProjects',
+export const removeListSlice = createSlice({
+    name: 'removeList',
     initialState,
     reducers: {
         Request: (state) => {
             state.loading = 'loading'
         },
-        Success: (state, action) => {
+        Success: (state) => {
             state.loading = 'idle'
-            state.projects = action.payload
+            state.isSucess = true
             state.isError = false
             state.error = null
         },
         Fail: (state, action) => {
             state.loading = 'idle'
-            state.projects = null
+            state.isSucess = false
             state.isError = true
             state.error = action.payload
         },
-        Reset: (state) => {
+        RemoveReset: (state) => {
             state.isError = false
             state.error = null
-            state.projects = null
+            state.isSucess = false
             state.loading = 'idle'
         }
     }
 })
 
-export const { Request, Success, Fail, Reset } = fetchProjectSlice.actions
+export const { Request, Success, Fail, RemoveReset } = removeListSlice.actions
 
-export const fetchProjectAction = () => {
+export const removeListAction = (projectId: string, listId: string) => {
     return async (dispatch: Dispatch) => {
         try {
             dispatch(Request)
-            const response = await axios.get(`/api/projects`);
+            const response = await axios.post(`/api/list/${listId}/remove`, {
+                projectId: projectId
+            });
 
-            const data = await response.data;
-
-            dispatch(Success(data))
+            dispatch(Success())
         } catch (e) {
             dispatch(Fail(e.response.data.message))
         }

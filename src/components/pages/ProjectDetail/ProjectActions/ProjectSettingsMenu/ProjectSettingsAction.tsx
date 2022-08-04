@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {IconButton} from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import MenuComp from '../../../MenuComp/MenuComp';
+import MenuComp from '../../../../MenuComp/MenuComp';
 
 
 

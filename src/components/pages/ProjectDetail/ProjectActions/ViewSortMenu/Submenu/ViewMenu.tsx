@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {List, ListItem, ListItemText, Menu, MenuItem} from "@mui/material";
-import {useLocalStorage} from "../../../../../../hooks/useLocalStorage";
-import {useAppDispatch, useAppSelector} from "../../../../../store/store";
-import {setType} from "../../../../../store/slices/UI/setTasksViewTypeSlice/setTasksViewTypeSlice";
-import { getType } from "../../../../../store/slices/UI/setTasksViewTypeSlice/setTasksViewTypeSlice";
+import {useLocalStorage} from "../../../../../../../hooks/useLocalStorage";
+import { useAppDispatch, useAppSelector } from '../../../../../../store/store';
+import { setType } from '../../../../../../store/slices/UI/setTasksViewTypeSlice/setTasksViewTypeSlice';
 
 const options = [
     'List',

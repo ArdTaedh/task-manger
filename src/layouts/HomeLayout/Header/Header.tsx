@@ -29,7 +29,6 @@ export const Header = ({open, toggle }: HeaderProps) => {
     const { loading, userInfo } = useAppSelector(state => state.userFetch)
     const { project } = useAppSelector(state => state.projectDetail)
 
-    const data = JSON.parse(userInfo)
 
     const activeProjectName = pathname.includes('[...id]')
         ? <Typography>{project?.name}</Typography>
@@ -91,12 +90,12 @@ export const Header = ({open, toggle }: HeaderProps) => {
                         </IconButton>
                         <HeaderMenu openMenu={openMenu} onClose={handleClose} menuItem={menu}/>
                         {
-                            data !== null
+                            userInfo !== null
                                 ? (
                                     <Typography
                                         variant='body2'
                                     >
-                                        {data.username}
+                                        {userInfo.username}
                                     </Typography>
                                 )
                                 : (

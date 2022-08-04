@@ -8,7 +8,8 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../../utils/mui/theme';
 import createEmotionCache from '../../utils/mui/createEmotionCache';
 import { NextPage } from 'next/types';
-import { wrapper } from '../store/store';
+import { store } from '../store/store';
+import { Provider } from 'react-redux';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -28,31 +29,35 @@ function MyApp(props: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page)
 
     return (
-                <SessionProvider
-                    session={pageProps?.session}
-                    refetchInterval={5 * 60}
-                    refetchOnWindowFocus={true}
-                >
-                    {
-                        getLayout(
-                            <>
-                                <CacheProvider value={emotionCache}>
-                                    <Head>
-                                        <meta name="viewport" content="initial-scale=1, width=device-width" />
-                                        <link rel="shortcut icon" href="/public/favicon.ico" />
-                                    </Head>
-                                    <ThemeProvider theme={theme}>
-                                        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                                        <CssBaseline />
-                                        <Component {...pageProps} />
-                                    </ThemeProvider>
-                                </CacheProvider>
+        <Provider
+            store={store}
+        >
+            <SessionProvider
+                session={pageProps?.session}
+                refetchInterval={5 * 60}
+                refetchOnWindowFocus={true}
+            >
+                {
+                    getLayout(
+                        <>
+                            <CacheProvider value={emotionCache}>
+                                <Head>
+                                    <meta name="viewport" content="initial-scale=1, width=device-width" />
+                                    <link rel="shortcut icon" href="/public/favicon.ico" />
+                                </Head>
+                                <ThemeProvider theme={theme}>
+                                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                                    <CssBaseline />
+                                    <Component {...pageProps} />
+                                </ThemeProvider>
+                            </CacheProvider>
 
-                            </>
-                        )
-                    }
-                </SessionProvider>
+                        </>
+                    )
+                }
+            </SessionProvider>
+        </Provider>
     )
 }
 
-export default wrapper.withRedux(MyApp)
+export default MyApp

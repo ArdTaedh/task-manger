@@ -2,13 +2,13 @@ import React, {FC, useEffect} from 'react'
 import {ProjectsExists} from './ProjectsExists/ProjectsExists'
 import {ProjectsNotExists} from './ProjectsNotExists/ProjectsNotExists'
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-// import {fetchUserAction} from "../../../store/slices/user/userFetchSlice/userFetchSilce";
-// import {fetchProjectAction} from "../../../store/slices/projects/fetchProjectSlice/fetchProjectSlice";
+import {fetchUserAction} from "../../../store/slices/user/userFetchSlice/userFetchSilce";
+import {fetchProjectAction} from "../../../store/slices/projects/fetchProjectSlice/fetchProjectSlice";
 
 type ProjectWrapperTypes = {}
 
 export const ProjectWrapper: FC<ProjectWrapperTypes> = ({}) => {
-    const {projects, error} = useAppSelector(state => state.projectsFetch)
+    const {projects, error, isError} = useAppSelector(state => state.projectsFetch)
     
     console.log(error)
 
@@ -16,12 +16,12 @@ export const ProjectWrapper: FC<ProjectWrapperTypes> = ({}) => {
 
     const {isSuccess} = useAppSelector(state => state.projectCreate)
 
-    // useEffect(() => {
-    //     if (isSuccess || !projects) {
-    //         dispatch((fetchProjectAction()))
-    //     }
+    useEffect(() => {
+        if (isSuccess || !projects) {
+            dispatch((fetchProjectAction()))
+        }
 
-    // }, [isSuccess, isError, dispatch])
+    }, [isSuccess, isError, dispatch])
 
     return (
         <>

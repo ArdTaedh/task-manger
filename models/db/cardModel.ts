@@ -18,15 +18,12 @@ const schema: Schema = new Schema<ICard>({
         startDate: {
             type: Date,
         },
-        startTime: {
-            type: String,
-        },
-        dueDate: {
-            type: Date,
-        },
-        dueTime: {
-            type: String,
-        },
+        // dueDate: {
+        //     type: Date,
+        // },
+        // dueTime: {
+        //     type: String,
+        // },
         completed: {
             type: Boolean,
             default: false,

@@ -11,14 +11,14 @@ const initialState : userFetchTypes = {
     error: null
 }
 
-const userFetchSlice = createSlice({
+export const userFetchSlice = createSlice({
     name: 'userFetch',
     initialState,
     reducers: {
         Request: (state) => {
             state.loading = 'loading'
         },
-        Fetch: (state, action) => {
+        Success: (state, action) => {
             state.loading = 'idle'
             state.isSuccess = true
             state.userInfo = action.payload
@@ -39,46 +39,31 @@ const userFetchSlice = createSlice({
             state.isError = true
             state.error = null
         },
-    },
-    extraReducers: {
-        [HYDRATE]: (state, action) => {
-            // console.log('HYDRATE USER', action.payload)
-
-            if (action.payload.userFetch.userInfo === null) {
-                return state
-            }
-
-            state.userInfo = action.payload.userFetch.userInfo
-        }   
     }
-
 })
 
-export const {Request, Fetch, Error, Reset, } = userFetchSlice.actions
+export const {Request, Success, Error, Reset, } = userFetchSlice.actions
 
-export default userFetchSlice.reducer
+export const fetchUserAction = () => {
+    return async (dispatch: Dispatch) => {
+        // try {
+        //     dispatch(Request)
 
-// export const fetchUserAction = () => {
-//     return async (dispatch: Dispatch) => {
-//         // try {
-//         //     dispatch(Request)
+        //     const response = await axios.get('/api/user/fetch')
+        //     const data = await response.data;
+        //     console.log(data)
 
-//         //     const response = await axios.get('/api/user/fetch')
-//         //     const data = await response.data;
-//         //     console.log(data)
-
-//         //     dispatch(Success(data))
-//         // } catch (e) {
-//         //     // dispatch(Error(e.response?.data?.message as string))
-//         //     dispatch(Error(e))
-//         //     console.log(e)
-//         // }
-//         dispatch(Request)
+        //     dispatch(Success(data))
+        // } catch (e) {
+        //     // dispatch(Error(e.response?.data?.message as string))
+        //     dispatch(Error(e))
+        //     console.log(e)
+        // }
+        dispatch(Request)
         
-//         const response = await axios.get('http://localhost:3000/api/user/fetch')
-//         const data = await response.data;
-//         console.log(data)
+        const response = await axios.get('http://localhost:3000/api/user/fetch')
+        const data = await response.data;
 
-//         dispatch(Success(data))
-//     }
-// }
+        dispatch(Success(data))
+    }
+}
