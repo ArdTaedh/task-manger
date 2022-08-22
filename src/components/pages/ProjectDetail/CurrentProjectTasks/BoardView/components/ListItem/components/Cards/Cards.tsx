@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import { useState } from 'react'
 import TaskItem from '../../../TaskItem/TaskItem'
 
 type cardsTypes = {
@@ -6,6 +7,12 @@ type cardsTypes = {
 }
 
 const Cards = ({ item }: cardsTypes) => {
+    const [cardModalIsOpen, setCardModalIsOpen] = useState(false)
+
+    const setCardModalHandler = () => {
+        setCardModalIsOpen(!cardModalIsOpen)
+    }
+ 
     return (
         <>
             {
@@ -20,12 +27,13 @@ const Cards = ({ item }: cardsTypes) => {
                             }}
                         >
                             {
+                                //@ts-ignore
                                 item.cards.map(i => (
                                     <TaskItem
                                         key={i._id}
-                                        taskName={i.title}
-                                        cardId={i._id}
-                                        listId={item._id}
+                                        card={i}
+                                        modalIsActive={cardModalIsOpen}
+                                        setModalHandler={setCardModalHandler}
                                     />
                                 ))
                             }

@@ -1,28 +1,46 @@
 import { Card, CardContent } from "@mui/material"
 import { removeCardAction } from "../../../../../../../store/slices/card/removeCardSlice/removeCardSlice"
 import { useAppDispatch } from "../../../../../../../store/store"
+import TaskItemModal from "./TaskItemModal"
 
-type taskItemTypes = {
-    taskName: string,
-    cardId: string,
-    listId: string
+type CardTypes = {
+    id: string,
+    date: {
+        startDate: string,
+        completed: boolean
+    },
+    description: string,
+    owner: string,
+    title: string
 }
 
-const TaskItem = ({ taskName, cardId, listId }: taskItemTypes) => {
+type taskItemTypes = {
+    card: CardTypes,
+    modalIsActive: boolean,
+    setModalHandler: () => void
+}
+
+const TaskItem = ({ card, modalIsActive, setModalHandler }: taskItemTypes) => {
     const dispatch = useAppDispatch()
 
-    const removeHandler = () => {
-        dispatch(removeCardAction(cardId, listId))
-    }
+    console.log(card);
+
 
     return (
-        <Card
-            onClick={() => removeHandler()}
-        >
-            <CardContent>
-                {taskName}
-            </CardContent>
-        </Card>
+        <>
+            <Card
+                onClick={() => setModalHandler()}
+            >
+                <CardContent>
+                    {card.title}
+                </CardContent>
+            </Card>
+            <TaskItemModal 
+                modalIsActive={modalIsActive}
+                setModalHandler={setModalHandler}
+                card={card}
+            />
+        </>
     )
 }
 
