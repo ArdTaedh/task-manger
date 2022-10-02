@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import { useState } from 'react'
 import TaskItem from '../../../TaskItem/TaskItem'
 
 type cardsTypes = {
@@ -7,12 +6,6 @@ type cardsTypes = {
 }
 
 const Cards = ({ item }: cardsTypes) => {
-    const [cardModalIsOpen, setCardModalIsOpen] = useState(false)
-
-    const setCardModalHandler = () => {
-        setCardModalIsOpen(!cardModalIsOpen)
-    }
- 
     return (
         <>
             {
@@ -32,8 +25,6 @@ const Cards = ({ item }: cardsTypes) => {
                                     <TaskItem
                                         key={i._id}
                                         card={i}
-                                        modalIsActive={cardModalIsOpen}
-                                        setModalHandler={setCardModalHandler}
                                     />
                                 ))
                             }

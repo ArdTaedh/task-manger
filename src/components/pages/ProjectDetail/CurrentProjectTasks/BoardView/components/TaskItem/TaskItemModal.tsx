@@ -1,4 +1,5 @@
 import { Dialog, DialogTitle } from "@mui/material"
+import Cards from "../ListItem/components/Cards/Cards"
 
 type CardTypes = {
     id: string,
@@ -24,9 +25,11 @@ const TaskItemModal = ({ modalIsActive, setModalHandler, card }: TaskItemModalTy
             onClose={setModalHandler}
         >
             <DialogTitle>
-                Some Title
+                {card.title}
             </DialogTitle>
-            {JSON.stringify(card)}
+            {
+                card.description
+            }
         </Dialog>
     )
 }

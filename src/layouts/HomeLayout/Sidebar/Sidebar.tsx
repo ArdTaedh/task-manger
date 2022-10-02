@@ -12,8 +12,8 @@ import { DrawerHeader } from '../HomeLayout';
 import { Drawer } from './sidebarMixins';
 import { SidebarLink } from './SidebarLink';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useRouter } from 'next/router';
 import {useAppSelector} from "../../../store/store";
+import { useRouter } from 'next/router';
 
 type SidebarProps = {
     open: boolean
